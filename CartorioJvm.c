@@ -124,7 +124,6 @@ system("pause"); //mantém o usuário na tela
 }
 
 
-
 int main()
 {
     int opcao=0; //definindo variáveis
@@ -141,7 +140,8 @@ int main()
 	 printf("   Escolha a opção desejada do menu:\n\n");
 	 printf("\t1 -> Registrar nomes\n");
 	 printf("\t2 -> Consultar nomes\n");
-	 printf("\t3 -> Deletar nomes\n\n"); 
+	 printf("\t3 -> Deletar nomes\n"); 
+	 printf("\t4 -> Sair do sistema\n\n");
 	 printf("   Digite o número da opção: "); 
 	 //final do menu
 	
@@ -161,6 +161,12 @@ int main()
 	     
 	     case 3: //caso o usuário digite "3"
 	     deletar(); //chama a função de deletar
+	     break; //fecha a "chave"
+	     
+	     case 4: //caso o usuário digite "3"
+	     printf("Você escolheu sair do sistema.\n"); //informando que o usuário sairá do sistema
+		 printf("Obrigado por utilizar o sisstema!\n"); 
+	     return 0; //retarna ao valor 0 quebrando o laço, função etc e fecha o sistema
 	     break; //fecha a "chave"
 	     
 	     default: //caso seja uma opção não mapeada
