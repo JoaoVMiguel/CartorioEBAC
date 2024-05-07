@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <string.h> //biblioteca responsável porcuidar das strings
 
-int registrar() //ciando a função de registar os nomes
+int registrar() //criando a função de registar os nomes
 { 
   //criando as variáveis/strings
   char arquivo [40];
@@ -12,6 +12,7 @@ int registrar() //ciando a função de registar os nomes
   char nome[40];
   char sobrenome[40];
   char cargo[40];
+  char continuar[2]; //variável string para a opção de continuar
   //final da criação de variáveis/strings
   
   printf("Você escolheu o registro de nomes\n\n"); //mostrando ao usuário qual opção foi escolhida
@@ -59,6 +60,11 @@ int registrar() //ciando a função de registar os nomes
    file = fopen(arquivo, "a"); //atualiza o arquivo já existente
    fprintf(file, cargo); //adiciona a informação do cargo
    fclose(file);//fecha o arquivo
+   
+   printf("\nUsuário registrado com sucesso!\n\n");
+   
+ 
+
  
  system("pause"); //mantem o usuário na tela
 }
@@ -123,13 +129,12 @@ else //se não
 system("pause"); //mantém o usuário na tela
 }
 
-
 int main()
 {
     int opcao=0; //definindo variáveis
-    int laco=1;
-	
-	for(laco=1;laco=1;) //criando repetição
+    char buffer [100];
+    
+    while (1) 
 	{
 	 system("cls"); //limpa a tela
 	 
@@ -145,9 +150,13 @@ int main()
 	 printf("   Digite o número da opção: "); 
 	 //final do menu
 	
-	 scanf("%d", &opcao); //armazenando a escolha do usuário
-	
-	 system("cls"); //limpando o menu
+	if (scanf("%d", &opcao) != 1) {
+        fgets(buffer, sizeof(buffer), stdin); // Lê a entrada do usuário
+        printf("\n   Opção inválida. Por favor, digite um número.\n");
+        printf("\n");
+        system("pause");
+        continue; // Volta para o início do loop
+}
 	
 	 switch(opcao) //analisando a variável e criando as opções
 	 {
@@ -171,14 +180,22 @@ int main()
 	     
 	     default: //caso seja uma opção não mapeada
 	     printf("\n"); //epaçamento
-		 printf("Essa opção não está disponível\n"); //informando que não existe essa opção
+		 printf("   Essa opção não está disponível\n"); //informando que não existe essa opção
 	     printf("\n"); //espaçamento
 		 system("pause"); //mantém o usuário na tela
 	     break; //fecha "chave"
 	 }// fim da seleção
+	 
 	}
 	
 	
 	
 	
 }
+
+
+
+	
+	
+	
+	
