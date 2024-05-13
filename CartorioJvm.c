@@ -12,12 +12,9 @@ int registrar() //criando a função de registar os nomes
   char nome[40];
   char sobrenome[40];
   char cargo[40];
-  char continuar[2]; //variável string para a opção de continuar
   //final da criação de variáveis/strings
   
   printf("Você escolheu o registro de nomes\n\n"); //mostrando ao usuário qual opção foi escolhida
-  
-  
   printf("Digite o CPF a ser cadastrado: "); //coletando as informações do usuário
   scanf("%s", cpf); //armazenando as stings
   
@@ -61,11 +58,8 @@ int registrar() //criando a função de registar os nomes
    fprintf(file, cargo); //adiciona a informação do cargo
    fclose(file);//fecha o arquivo
    
-   printf("\nUsuário registrado com sucesso!\n\n");
-   
- 
+   printf("\nUsuário registrado com sucesso!\n\n"); //informa que o registro foi realizado
 
- 
  system("pause"); //mantem o usuário na tela
 }
 
@@ -87,7 +81,7 @@ int consultar()
   if(file == NULL) //caso a informação digitada seja nula (não faça parte do sistema)
   {
   	printf("\n"); //espaçamento entre os textos
-	printf("CPF não localizado\n\n"); //aviso que não existe o arquivo no sistema
+	printf("CPF não localizado\n\n"); //avisa que não existe o arquivo no sistema
   }
  
   while (fgets(conteudo, 200, file) != NULL) //enquanto a informação não for nula
@@ -103,7 +97,7 @@ int consultar()
 
 int deletar()
 {
-  char cpf[40]; //cria a variável
+ char cpf[40]; //cria a variável
   
  printf("Você escolheu deletar os nomes\n"); //mostra o opção selecionada
  printf("\n"); //espaçamento
@@ -111,7 +105,7 @@ int deletar()
  printf("Digite o CPF do usuário a ser deletado: "); //coleta informações do usuário
  scanf("%s", cpf); //amazena na string
  
- FILE *file;
+ FILE *file; //
  file = fopen(cpf,"r"); //abre e lê o arquivo
  fclose(file); //fecha o arquivo
  
@@ -131,71 +125,88 @@ system("pause"); //mantém o usuário na tela
 
 int main()
 {
-    int opcao=0; //definindo variáveis
-    char buffer [100];
-    
-    while (1) 
+    //definindo variáveis
+	int  opcao=0; //cria variável inteira com valor 0
+    char buffer [100]; // cria uma matriz de caracteres com capacidade de 100 caracteres usada para armazenar entradas do usuário
+    char senhaadm [10] = "admin"; //cria uma string que determina a senha correta como "admin"
+	
+	while(1) //cria um loop infinito para a tela de login
 	{
 	 system("cls"); //limpa a tela
+	 printf("     ===# Cartório da EBAC #===\n\n"); //título
+	 printf("Login do admnistrador\n\nDigite a sua senha: "); //solicita a senha do usuário
+	 scanf("%s",senhaadm); //lê a resposta e armazena na string "senhaadm"
+	
+	 if(strcmp("admin", senhaadm) == 0) //compara as strings, retorna a 0 se forem idênticas e executa o obloco "if"
+	  {
+      break; // Sai do loop se a senha estiver correta
+      } 
 	 
-	 SetConsoleOutputCP(CP_UTF8); //definindo a linguagem
+	 else //caso a resposta seja diferente
+	   {
+        printf("\nSenha incorreta, tente novamente!\n\n"); //avisa quea senha é inválida
+        system("pause"); //mantém o usuário na tela
+       }
+    } //fecha o while da tela de login
 	
-	//inicio do menu
-	 printf("     ===# Cartório da EBAC #===\n\n");  
-	 printf("   Escolha a opção desejada do menu:\n\n");
-	 printf("\t1 -> Registrar nomes\n");
-	 printf("\t2 -> Consultar nomes\n");
-	 printf("\t3 -> Deletar nomes\n"); 
-	 printf("\t4 -> Sair do sistema\n\n");
-	 printf("   Digite o número da opção: "); 
-	 //final do menu
 	
-	if (scanf("%d", &opcao) != 1) {
-        fgets(buffer, sizeof(buffer), stdin); // Lê a entrada do usuário
-        printf("\n   Opção inválida. Por favor, digite um número.\n");
-        printf("\n");
-        system("pause");
-        continue; // Volta para o início do loop
-}
-	
-	 switch(opcao) //analisando a variável e criando as opções
+	 while (1) //cria um loop infinito até que o usuário escolha a opção de sair do sistema
 	 {
+	  
+	  system("cls"); //limpa a tela
+	 
+ 	  SetConsoleOutputCP(CP_UTF8); //definindo a linguagem
+	
+	 //inicio do menu
+	  printf("     ===# Cartório da EBAC #===\n\n");  
+	  printf("   Escolha a opção desejada do menu:\n\n");
+	  printf("\t1 -> Registrar nomes\n");
+	  printf("\t2 -> Consultar nomes\n");
+	  printf("\t3 -> Deletar nomes\n"); 
+	  printf("\t4 -> Sair do sistema\n\n");
+	  printf("   Digite o número da opção: "); 
+	  //final do menu
+	
+	 if (scanf("%d", &opcao) != 1) //tratamento para aceitar apenas números inteiros no menu principal
+	  {
+        fgets(buffer, sizeof(buffer), stdin); //usa fgets para limpar o buffer de entrada padrão após uma entrada inválida
+        printf("\n   Opção inválida. Por favor, digite um número.\n"); //informa que é uma resposta inválida
+        printf("\n"); //espaçamento
+        system("pause"); //mantém o usuário na tela
+        continue; // Volta para o início do loop
+      }
+      
+	   system("cls"); //limpa o menu
+	
+	  switch(opcao) //analisa a variável e cria as opções
+	  {
 	 	case 1: //caso o usuário digite "1"
 	 	 registrar(); //chama a função de registrar	
-	     break; //fechandondo as "chaves"
+	     break; //encerra a execução do switch-case
 	     
 	     case 2: //caso o usuário digite "2"
 	     consultar(); //chama a função de consultar
-	     break; //fecha a "chave"
+	     break; //encerra a execução do switch-case
 	     
 	     case 3: //caso o usuário digite "3"
 	     deletar(); //chama a função de deletar
-	     break; //fecha a "chave"
+	     break; //encerra a execução do switch-case
 	     
-	     case 4: //caso o usuário digite "3"
+	     case 4: //caso o usuário digite "4"
 	     printf("Você escolheu sair do sistema.\n"); //informando que o usuário sairá do sistema
 		 printf("Obrigado por utilizar o sisstema!\n"); 
-	     return 0; //retarna ao valor 0 quebrando o laço, função etc e fecha o sistema
-	     break; //fecha a "chave"
+	     return 0; //retorna ao valor 0 quebrando o laço, função etc e fecha o sistema
+	     break; //encerra a execução do switch-case
 	     
 	     default: //caso seja uma opção não mapeada
 	     printf("\n"); //epaçamento
 		 printf("   Essa opção não está disponível\n"); //informando que não existe essa opção
 	     printf("\n"); //espaçamento
 		 system("pause"); //mantém o usuário na tela
-	     break; //fecha "chave"
-	 }// fim da seleção
+	     break; //encerra a execução do switch-case
+	  }// fim da seleção de cases no bloco switch
 	 
-	}
+	 }//fecha o bloco while do menu
 	
-	
-	
-	
-}
-
-
-
-	
-	
-	
-	
+}//fecha a main
+    
